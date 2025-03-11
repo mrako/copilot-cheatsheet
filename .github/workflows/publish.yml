@@ -1,0 +1,56 @@
+name: Build and Publish PDFs
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Replace version/date in TeX
+        run: |
+          VERSION="${{ github.event.release.tag_name }}"
+          VERSION="${VERSION#v}"
+          sed -i "s/Version X.X.X, updated XX.XX.XXXX/Version ${{ github.event.release.tag_name }}, updated $(date '+%d.%m.%Y')/g" src/setup.tex
+
+      - name: Build PDF (Windows)
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: src/vscode-win.tex
+          compiler: pdflatex
+          args: -jobname=github-cheatsheet-vscode-win
+
+      - name: Build PDF (macOS)
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: src/vscode-osx.tex
+          compiler: pdflatex
+          args: -jobname=github-cheatsheet-vscode-osx
+
+      - name: Upload PDF (Windows)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Uses built-in Actions token
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: github-cheatsheet-vscode-win.pdf
+          asset_name: github-cheatsheet-vscode-win.pdf
+          asset_content_type: application/pdf
+
+      - name: Upload PDF (macOS)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: github-cheatsheet-vscode-osx.pdf
+          asset_name: github-cheatsheet-vscode-osx.pdf
+          asset_content_type: application/pdf

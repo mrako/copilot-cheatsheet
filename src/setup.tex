@@ -1,0 +1,78 @@
+
+\usepackage[margin=0in]{geometry} % Removed all margins
+\usepackage{xcolor}
+\usepackage{courier}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\setlength{\parindent}{0pt}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{multicol} % Added for columns
+\usepackage{tikz} % Improved for precise positioning
+\usepackage{array} % For improved table formatting
+\usepackage{titlesec} % Adjusting subsection spacing
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{xcolor}
+
+\definecolor{yellow}{HTML}{F8D347}
+
+\titleformat{name=\subsection,numberless}[block]{\normalfont\small\bfseries}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{0em}{0em}
+
+\makeatletter
+\renewcommand\small{\@setfontsize\small{8pt}{10pt}}
+\renewcommand\footnotesize{\@setfontsize\footnotesize{7pt}{9pt}}
+\renewcommand\scriptsize{\@setfontsize\scriptsize{6pt}{8pt}}
+\renewcommand\tiny{\@setfontsize\tiny{5pt}{7pt}}
+\makeatother
+
+\renewenvironment{quote}%
+  {\vspace{0pt}  % Remove default top margin
+   \list{}{\leftmargin=0.3em \rightmargin=0.3em \topsep=0pt \partopsep=0pt}%
+   \item\relax}
+  {\endlist
+   \vspace{0.3em}}
+
+\renewcommand{\arraystretch}{1.6}
+
+\newcommand{\versioninfo}{%
+  \hspace{18pt}{\small Version X.X.X, updated XX.XX.XXXX}%
+}
+
+\newcommand{\customsection}[1]{%
+  {\normalfont\small\bfseries\colorbox{black}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\color{white}\vspace{0.2em}\hspace{4pt}\strut#1\hspace{4pt}\vspace{0.1em}}%
+  }}
+  \vspace{0em}
+  \begin{quote}
+  \small
+}
+
+\newcommand{\customsubsection}[1]{%
+  \subsection*{#1}%
+  \vspace{0.2em}
+}
+
+\newcommand{\customsectionend}{%
+  \vspace{0.2em}
+  \end{quote}
+}
+
+\newcommand{\code}[1]{%
+  \colorbox{gray!20}{%
+    \small\strut\texttt{\textbf{#1}}%
+  }%
+}
+
+\newcommand{\inlinecode}[1]{%
+  \colorbox{gray!20}{%
+    \small\texttt{\textbf{#1}}%
+  }%
+}
+
+\newcommand{\shortcut}[1]{%
+  \hspace{1pt}%
+  \code{#1}%
+}
+

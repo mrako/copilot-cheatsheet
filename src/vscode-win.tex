@@ -1,0 +1,152 @@
+\documentclass{article}
+
+\input{src/setup}
+
+\begin{document}
+
+\vspace*{1.5em}
+
+\noindent
+\begin{minipage}[c]{0.75\textwidth}
+  \raggedright
+  \hspace{18pt}{\Huge\bfseries GitHub Copilot Cheat Sheet}\\[0.3em]
+  \versioninfo
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.25\textwidth}
+  \raggedleft
+  \colorbox{black}{%
+    \parbox{\linewidth}{\centering\vspace{0.4cm}\textcolor{white}{Visual Studio Code (WIN)}\vspace{0.4cm}}%
+  }%
+\end{minipage}
+
+\vspace{1em}
+
+\begin{center}
+\begin{minipage}{0.95\textwidth}
+\begin{multicols}{2}
+
+\customsection{Introduction}
+GitHub Copilot is an AI-powered code completion tool that helps you write code faster and with fewer errors. This document covers essential keyboard shortcuts, slash commands, skills, and prompting tips to boost your productivity.
+\customsectionend
+
+\customsection{Keyboard Shortcuts}
+
+\subsection*{Working with Suggestions}
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+Accept an autocomplete suggestion & \shortcut{Tab} \\
+Open autocomplete suggestions & \shortcut{Ctrl}\shortcut{Enter} \\
+\end{tabularx}
+
+\subsection*{Working with views (Chat, Edits and Agent Mode)}
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+Accept suggestion & \shortcut{Ctrl}\shortcut{Enter} \\
+Open inline chat & \shortcut{Ctrl}\shortcut{I} \\
+Open Copilot chats & \shortcut{Ctrl}\shortcut{Alt}\shortcut{I} \\
+Open Copilot edits & \shortcut{Ctrl}\shortcut{Shift}\shortcut{I} \\
+Switch between edits and agent & \shortcut{Ctrl}\shortcut{.} \\
+\end{tabularx}
+\customsectionend
+
+\customsection{Slash Commands (Inline and Chat)}
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+Generate unit tests for the selected code & \shortcut{/tests} \\
+Propose a fix for problems in the selected code & \shortcut{/fix} \\
+Explain the selected code & \shortcut{/explain} \\
+Start a new session (chat only) & \shortcut{/clear} \\
+\end{tabularx}
+\customsectionend
+
+
+\customsection{Chat Participants}
+Chat participants are specialized assistants that provide context-specific help based on the area they are designed for. They enhance GitHub Copilot's ability to understand and respond to queries by focusing on particular domains or functionalities.
+
+\begin{tabularx}{\linewidth}{@{}X p{7cm}@{}}
+\code{\#file} & Select a file to get context-specific suggestions related to only it. \\
+\code{\#codespace} & Similar to \inlinecode{@workspace}, Copilot helps you find relevant code in your workspace for your chat prompt. \#codebase can now run tools like text search and file search to pull in additional context. (\#codebase requires setting \inlinecode{github.copilot.chat.codesearch.enabled}) \\
+\code{@vscode} & Offers context about Visual Studio Code commands and features. Use for assistance with Visual Studio Code functionalities. \\
+\code{@terminal} & Knows about the Visual Studio Code terminal shell and its contents. Use for help with creating or debugging terminal commands. \\
+\code{@github} & Has knowledge and skills related to GitHub repositories. Use for tasks involving GitHub. \\
+\end{tabularx}
+
+You can install more chat participants through the VS Code Extensions \newline (\inlinecode{Ctrl}\hspace{1pt}\inlinecode{Shift}\hspace{1pt}\inlinecode{X}) by searching \inlinecode{tag:chat-participant}. GitHub Copilot for Azure is the \inlinecode{@azure} extension. Chat with it to get help with Azure services, developing for Azure, and Azure DevOps tasks.
+\customsectionend
+
+
+\customsection{Prompting Tips and Tricks}
+\customsubsection{Provide Context}
+Keep relevant files open, such as source code and data files. Copilot uses these to analyze context and create appropriate suggestions. Add a brief description at the top of the file to help Copilot understand the overall context.
+
+\customsubsection{Set Appropriate Includes and References}
+Manually set the necessary includes or module references for your work. This helps Copilot know what frameworks and libraries to use when crafting suggestions.
+
+\customsubsection{Use Descriptive Naming}
+Use specific and descriptive names for variables, types, functions, and parameters. Meaningful function names and comments help Copilot provide accurate code suggestions.
+
+\customsubsection{Give examples}
+Use examples (inputs, outputs, and implementations) to help Copilot understand what you want. This helps Copilot generate suggestions that match the language and tasks you want to achieve.
+
+\customsubsection{Avoid Ambiguity}
+Be specific in your prompts. Instead of asking "What does this do?", clarify "What does the getWeekNumber function do?" If you want to use a specific library, set the import statements at the top of the file or specify what library you want to use.
+
+\customsubsection{Follow Good Coding Practices}
+Maintain clean code to improve Copilot's results. Use consistent code style and patterns, use descriptive naming, add clear comments, structure your code into modular, scoped components and include unit tests.
+
+\customsubsection{Keep History Relevant and Iterate on the Solution}
+When asking Copilot Chat for help, you aren't stuck with the first response. You can iterate and prompt Copilot to improve the solution. Copilot has both the context of the generated code and also your current conversation.
+\customsectionend
+
+
+\customsection{Custom instructions for Copilot}
+You can include natural language instructions in your file using Markdown format. Whitespace is ignored, so you have flexibility in formatting: write them as a single paragraph, place each on a new line, or separate them with blank lines for better readability.
+
+Create a file named \inlinecode{.github/copilot-instructions.md} in the root of your repository.
+\customsectionend
+
+
+\customsection{GitHub Copilot in the Command Line}
+
+\customsubsection{Use copilot in your CLI to suggest or explain commands:}
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\code{gh copilot explain "grep -rl const ."} \\
+\code{gh copilot suggest "Undo the last commit"} \\
+\end{tabularx}
+
+\customsubsection{TIP: Create a shorthad alias to use suggest quickly:}
+\begin{tabularx}{\linewidth}{@{}X r@{}}
+\code{alias "??"="gh copilot suggest -t shell \$@"} \\
+\code{?? Undo the last commit} \\
+\end{tabularx}
+
+\customsectionend
+
+\end{multicols}
+\end{minipage}
+\end{center}
+
+\vfill
+
+\begin{tikzpicture}[remember picture, overlay]
+  \node[anchor=south,yshift=-1em] at (current page.south) {
+    \begin{minipage}{\textwidth}
+      \begin{tcolorbox}[colback=black, boxrule=0pt, frame hidden,
+          left=10pt, right=10pt, top=10pt, bottom=10pt, sharp corners]
+
+        \begin{minipage}[c]{0.65\textwidth}
+          {\color{white}\small\textbf{Marko Klemetti}}\\[2pt]
+          \color{white}\small\url{github.com/mrako/copilot-cheatsheet}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[c]{0.08\textwidth}
+          \centering
+          \includegraphics[width=0.60\linewidth]{img/eficode-logo.png}
+        \end{minipage}
+
+        \vspace{1em}
+
+      \end{tcolorbox}
+    \end{minipage}
+  };
+\end{tikzpicture}
+
+\end{document}
